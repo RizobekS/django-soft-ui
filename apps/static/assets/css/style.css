@@ -1,0 +1,24 @@
+.line{
+    left: 50%;
+    margin-left: -50px;
+    margin-bottom: 50px;
+    position: relative;
+    width: 100px;
+    height: 2px;
+    background-color: #333;
+    box-sizing: border-box;
+    text-align: center;
+}
+.line::before{
+    content: '';
+    position: absolute;
+    right: 0px;
+    bottom: -4px;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    left: 50%;
+    right: auto;
+    margin-left: -5px;
+    background-color: #FF00AE;
+}
