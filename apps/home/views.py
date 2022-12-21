@@ -20,6 +20,21 @@ def index(request):
     return HttpResponse(html_template.render(context, request))
 
 
+def contact(request):
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid() and request.POST['address'] == "":
+            form.save()
+            name = request.POST['name']
+            messages.success(request, 'Success!')
+            return render(request, 'home/page-contact-us.html', {'name': name})
+        else:
+            name = " Ooops, something went wrong!"
+            return render(request, 'home/page-contact-us.html', {'name': name})
+    else:
+        return render(request, 'home/page-contact-us.html', {})
+
+
 def pages(request):
     context = {}
     # All resource paths end in .html.
@@ -44,17 +59,3 @@ def pages(request):
         html_template = loader.get_template('home/page-500.html')
         return HttpResponse(html_template.render(context, request))
 
-
-def contact(request):
-    if request.method == "POST":
-        form = ContactForm(request.POST)
-        if form.is_valid() and request.POST['address'] == "":
-            form.save()
-            name = request.POST['name']
-            messages.success(request, 'Success!')
-            return render(request, 'page-contact-us.html', {'name': name})
-        else:
-            name = "Ooops, something went wrong!"
-            return render(request, 'page-contact-us.html', {'name': name})
-    else:
-        return render(request, 'page-contact-us.html.html', {})
